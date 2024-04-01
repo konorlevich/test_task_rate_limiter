@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  server:
+    container_name: server
+    build:
+      dockerfile: deployment/Dockerfile
+      context: ../
+    ports:
+      - "8080:8080"
