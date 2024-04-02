@@ -8,6 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/redis/go-redis/v9"
 	log "github.com/sirupsen/logrus"
 
 	"github.com/konorlevich/test_task_rate_limiter/internal/server/handler"
@@ -24,7 +25,12 @@ func main() {
 	defer stop()
 	defer l.Println("got interruption signal")
 
-	server := &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler.NewHandler()}
+	r := redis.NewClient(&redis.Options{
+		Addr:     "redis:6379",
+		Password: "my-password", // no password set
+		DB:       0,             // use default DB
+	})
+	server := &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler.NewHandler(r, l)}
 
 	go func() {
 		l.Printf("listening to port %d", port)

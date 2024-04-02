@@ -8,3 +8,17 @@ services:
       context: ../
     ports:
       - "8080:8080"
+
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ../deployment/redis/data:/root/redis
+      - ../deployment/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=my-password
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
