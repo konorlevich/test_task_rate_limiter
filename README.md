@@ -77,3 +77,7 @@ make stop
 ```shell
 docker compose -f 
 ```
+
+### How to test
+
+Run any request examples from [test.http](test.http) (see comments in a file)

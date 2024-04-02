@@ -1,0 +1,34 @@
+###
+
+# Make a successfull transaction by `useername1`
+# curl -X POST -d "success=1" -u username:password http://0.0.0.0:8080/transaction
+POST http://0.0.0.0:8080/transaction
+Authorization: Basic username password
+Content-Type: application/x-www-form-urlencoded
+
+success = 1
+
+###
+# Make an unsuccessfull transaction by `useername1`
+# curl -X POST -d "success=0" -u username1:password http://0.0.0.0:8080/transaction
+POST http://0.0.0.0:8080/transaction
+Authorization: Basic username1 password
+Content-Type: application/x-www-form-urlencoded
+
+success = 0
+
+###
+
+# Create an account
+# curl -X POST -u username:password http://0.0.0.0:8080/account
+POST http://0.0.0.0:8080/account
+Authorization: Basic username password
+
+###
+# Send a message
+# curl -X POST -u username:password http://0.0.0.0:8080/message
+POST http://0.0.0.0:8080/message
+Authorization: Basic username password
+
+###
+
