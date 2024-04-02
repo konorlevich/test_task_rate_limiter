@@ -8,6 +8,7 @@ import (
 
 	"github.com/konorlevich/test_task_rate_limiter/internal/server/handler/account"
 	"github.com/konorlevich/test_task_rate_limiter/internal/server/handler/message"
+	"github.com/konorlevich/test_task_rate_limiter/internal/server/handler/transaction"
 )
 
 func NewHandler(r *redis.Client, l *log.Entry) http.Handler {
@@ -15,6 +16,6 @@ func NewHandler(r *redis.Client, l *log.Entry) http.Handler {
 
 	handler.Handle("POST /message", message.NewSendMessageHandler(message.NewCachedRateLimiter(r, l), l))
 	handler.Handle("POST /account", account.NewCreateAccountHandler(account.NewCachedRateLimiter(r, l), l))
-	handler.Handle("POST /transaction", nil)
+	handler.Handle("POST /transaction", transaction.NewMakeTransactionHandler(transaction.NewCachedRateLimiter(r, l), l))
 	return handler
 }
